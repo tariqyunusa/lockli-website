@@ -1,0 +1,126 @@
+.home_section{
+    width: 100vw;
+    background-color: #F8F7FF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.home__main{
+    display: flex;
+    flex-direction: column;
+    height: 70vh;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem;
+}
+.home__header{
+    font-family: var(--font-inter);
+    font-weight: 600;
+    letter-spacing: -6%;
+    font-size: 2.5rem;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 0.5rem;
+}
+.home__paragraph{
+    font-family: var(--font-inter);
+    font-weight: 500;
+    font-size: 1.37rem;
+    color: var(--auxilary);
+    letter-spacing: -6%;
+}
+.home__header_container{
+    display: flex;
+    flex-wrap: nowrap;
+    text-align: center;
+}
+.home__header_span_image {
+  width: 80px;
+  height: 80px;
+  background-color: #3F3871;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+
+  animation:  0.5s ease;
+}
+
+.home__header_span_image_second {
+  background-color: #8ECAE6;
+}
+.home__header_span_image_third {
+  background-color: #81B29A;
+}
+.home__header_icons{
+
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.center{
+  position: relative;
+  z-index: 3;
+  font-size: 2rem;
+}
+
+
+.icon{
+  position: relative;
+  transform: scale(0.3);
+  opacity: 0;
+  /* z-index: 999; */
+}
+
+
+.leftEnter{
+  animation: leftOut 0.6s cubic-bezier(.4,0,.2,1) forwards;
+}
+
+.rightEnter{
+  animation: rightOut 0.6s cubic-bezier(.4,0,.2,1) forwards;
+}
+
+.leftExit{
+  animation: leftBack 0.6s cubic-bezier(.4,0,.2,1) forwards;
+}
+
+.rightExit{
+  animation: rightBack 0.6s cubic-bezier(.4,0,.2,1)  forwards;
+}
+
+@keyframes leftOut{
+  0%{
+    transform: translateX(50%) ;
+    opacity:0;
+  }
+  100%{
+    transform: translateX(0%) ;
+    opacity:1;
+  }
+}
+
+@keyframes rightOut{
+  0%{
+    transform: translateX(-50%);
+    opacity:0;
+  }
+  100%{
+    transform: translateX(0%) ;
+    opacity:1;
+  }
+}
+@media screen and (max-width: 768px) {
+    .home__header_icons{
+        display: none;
+    }
+    .home__header{
+        font-size: 1.5rem;
+    }
+    .home__paragraph{
+        font-size: 1rem;
+    }
+}

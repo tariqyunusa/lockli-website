@@ -1,66 +1,88 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+
+import { useEffect, useState } from "react";
+import styles from "./styles/page.module.css";
+import Button from "./components/Button";
 
 export default function Home() {
+  const icons = ["🔒", "🚪", "🔗"]; 
+
+  const sequence = [
+    [false, false],
+    [true, false],
+    [true, true],
+    [true, false],
+    [false, false]
+  ];
+
+  const [visible, setVisible] = useState([false, false]); 
+  const [exiting, setExiting] = useState([false, false]);
+  const [step, setStep] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const next = sequence[step];
+
+      const newExiting = [false, false];
+      next.forEach((v, i) => {
+        if (!v && visible[i]) {
+          newExiting[i] = true;
+        }
+      });
+
+      setExiting(newExiting);
+
+      setTimeout(() => {
+        setVisible(next);
+        setExiting([false, false]);
+      }, 300);
+
+      setStep((s) => (s + 1) % sequence.length);
+    }, 1200);
+
+    return () => clearInterval(interval);
+  }, [step, visible]);
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.js file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <section className={styles.home_section}>
+      <main className={styles.home__main}>
+        <div className={styles.home__header_container}>
+          <h1 className={styles.home__header}>
+            The Internet,
+            <span className={styles.home__header_icons}>
+
+            
+              {(visible[0] || exiting[0]) && (
+                <div
+                  className={`${styles.home__header_span_image} ${styles.home__header_span_image_second} ${styles.icon} ${exiting[0] ? styles.leftExit : styles.leftEnter
+                    }`}
+                >
+                  {icons[0]}
+                </div>
+              )}
+
+              
+              <div className={`${styles.home__header_span_image} ${styles.center}`}>
+                {icons[1]}
+              </div>
+
+             
+              {(visible[1] || exiting[1]) && (
+                <div
+                  className={`${styles.home__header_span_image} ${styles.home__header_span_image_third} ${styles.icon} ${exiting[1] ? styles.rightExit : styles.rightEnter
+                    }`}
+                >
+                  {icons[2]}
+                </div>
+              )}
+            </span>
+            Without the Distractions.
+          </h1>
         </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+
+        <p className={styles.home__paragraph}>Get more done with Lockli.</p>
+        <Button />
       </main>
-    </div>
+    </section>
   );
 }
