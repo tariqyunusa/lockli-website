@@ -1,6 +1,8 @@
-import { Geist, Geist_Mono, Inter } from "next/font/google";
+
+import {  Inter } from "next/font/google";
 import "./globals.css";
 import Nav from "./components/Nav";
+import ClientWrapper from "./ClientWrapper";
 
 
 
@@ -17,13 +19,16 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+ 
   return (
     <html lang="en">
       <body className={`${inter.variable} `}>
-        <div className="nav__wrapper">
+        <ClientWrapper>
+          <div className="nav__wrapper">
           <Nav />
         </div>
         {children}
+        </ClientWrapper>
       </body>
     </html>
   );
