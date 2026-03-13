@@ -12,6 +12,8 @@
 }
 body {
   background-color: #F8F7FF;
+  overflow-x: hidden;
+  position: relative;
 }
 .nav__wrapper{
   width: 100%;
