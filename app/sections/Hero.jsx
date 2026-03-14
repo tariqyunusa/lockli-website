@@ -31,7 +31,18 @@ export default function Hero() {
         pin: true
       }
     })
-    
+    .to(doorIconRef.current, {
+      opacity: 0,
+      ease: "none",
+      duration: 0.3
+    })
+     .to(
+      [mainContentRef.current, paragraphRef.current, mainContentHeadRef.current, buttonRef.current], {
+        opacity: 0,
+        ease: "none",
+        duration: 0.3
+      }, 
+    )
     tl.to(
       doorRef.current, {
         width: "100vw",
@@ -41,13 +52,7 @@ export default function Hero() {
         duration: 1
       }
     )
-    .to(
-      [mainContentRef.current, paragraphRef.current, mainContentHeadRef.current, buttonRef.current], {
-        opacity: 0,
-        ease: "none",
-        duration: 0.3
-      }, "<"
-    )
+   
   },[])
 
 
@@ -68,7 +73,10 @@ export default function Hero() {
                   ref={contentRef}
                   className={styles.next_section_content}
                 >
-                
+                  <div className={styles.next_section_content_inner}>
+                <About />
+
+                  </div>
                 </div>
               </div>
             </span>
