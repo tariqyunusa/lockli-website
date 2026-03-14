@@ -1,9 +1,11 @@
 .home_section{
     width: 100vw;
+    height: 100vh;
     background-color: #F8F7FF;
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
     
 }
 .home__main{
@@ -14,6 +16,7 @@
     justify-content: center;
     gap: 1rem;
     padding: 2rem;
+    /* margin-bottom: 15rem; */
 }
 .home__header{
     font-family: var(--font-inter);
@@ -38,15 +41,15 @@
     text-align: center;
 }
 .home__header_span_image {
-  width: 80px;
-  height: 80px;
+  width: 5rem;
+  height: 5rem;
   background-color: #3F3871;
   border-radius: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 40px;
-
+  
   animation:  0.5s ease;
 }
 
