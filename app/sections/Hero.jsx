@@ -19,41 +19,78 @@ export default function Hero() {
   const paragraphRef = useRef(null)
   const buttonRef = useRef(null)
   const mainContentHeadRef = useRef(null)
+  const letterRefs = useRef([]);
 
 
-  useEffect(() => {
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: "top top",
-        end: "+=1500",
-        scrub: true,
-        pin: true
-      }
-    })
-    .to(doorIconRef.current, {
+ useEffect(() => {
+  const letters = letterRefs.current;
+
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: sectionRef.current,
+      start: "top top",
+      end: "+=3000",
+      scrub: true,
+      pin: true
+    }
+  });
+
+
+  tl.to(doorIconRef.current, {
+    opacity: 0,
+    ease: "none",
+    duration: 0.3
+  });
+
+
+  tl.to(
+    [mainContentRef.current, paragraphRef.current, mainContentHeadRef.current, buttonRef.current],
+    {
       opacity: 0,
       ease: "none",
       duration: 0.3
-    })
-     .to(
-      [mainContentRef.current, paragraphRef.current, mainContentHeadRef.current, buttonRef.current], {
-        opacity: 0,
-        ease: "none",
-        duration: 0.3
-      }, 
-    )
-    tl.to(
-      doorRef.current, {
-        width: "100vw",
-        height: "120vh",
-        borderRadius: 0,
-        ease: "none",
-        duration: 1
+    }
+  );
+
+
+  tl.to(doorRef.current, {
+    width: "110vw",
+    height: "110vh",
+    borderRadius: 0,
+    ease: "none",
+    duration: 1
+  });
+
+  tl.to(contentRef.current, {
+    opacity: 1,
+    ease: "none",
+    duration: 0.2
+  });
+
+  tl.to(
+    {},
+    {
+      duration: 2,
+      ease: "none",
+      onUpdate: function () {
+        const progress = this.progress();
+
+        letters.forEach((el, i) => {
+          const threshold = i / letters.length;
+
+          const opacity = gsap.utils.clamp(
+            0.2,
+            1,
+            (progress - threshold) * letters.length
+          );
+
+          gsap.set(el, { opacity });
+        });
       }
-    )
-   
-  },[])
+    }
+  );
+}, []);
+ 
 
 
 
@@ -70,11 +107,11 @@ export default function Hero() {
                 </span>
 
                 <div
-                  ref={contentRef}
+                  
                   className={styles.next_section_content}
                 >
-                  <div className={styles.next_section_content_inner}>
-                <About />
+                  <div className={styles.next_section_content_inner} ref={contentRef}>
+                <About refs={letterRefs}/>
 
                   </div>
                 </div>
