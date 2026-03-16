@@ -46,7 +46,7 @@ export default function About({ refs, iconRefs }) {
   };
 
   return (
-    <section className={styles.about__section}>
+    <section className={`${styles.about__section}`}>
       <div className={styles.about__section_content}>
         {splitWords(
           "Lockli is an attention management system that helps users structure focused work, understand their online behavior through analytics, and enforce boundaries by limiting access to distracting websites.",
