@@ -21,6 +21,10 @@
 .char {
   display: inline-block; 
   opacity: 0;
+  font-size: 3rem;
+  font-weight: 600;
+  line-height: 4.185rem;
+  letter-spacing: -6%;
 }
 .paragraph{
   display: flex;
