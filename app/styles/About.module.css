@@ -62,3 +62,12 @@
     gap: 0.8rem;
     padding-inline: 4rem;
 }
+
+@media screen and (max-width: 768px) {
+ .about__section{
+  padding: 2rem;
+ }
+ .about__section_content{
+  padding-inline: 1rem;
+ }
+}

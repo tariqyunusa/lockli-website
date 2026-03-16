@@ -27,6 +27,26 @@ export default function Hero() {
 
   useEffect(() => {
     const letters = letterRefs.current;
+    gsap.set(iconRefs.current, {
+      opacity: 0,
+      width: 0,
+      scale: 0.2,
+    });
+
+
+    if (window.innerWidth < 768) {
+      gsap.set(letters, { opacity: 1 });
+
+      gsap.set(iconRefs.current, {
+        width: 75,
+        opacity: 1,
+        marginLeft: 8,
+      });
+
+      gsap.set(contentRef.current, { opacity: 1 });
+
+      return;
+    }
 
     const tl = gsap.timeline({
       scrollTrigger: {
@@ -38,15 +58,10 @@ export default function Hero() {
       },
     });
 
-    gsap.set(iconRefs.current, {
-      opacity: 0,
-      width: 0,
-      scale: 0.2
-    });
     tl.to(doorIconRef.current, {
       opacity: 0,
-      ease: "none",
       duration: 0.3,
+      ease: "none",
     });
 
     tl.to(
@@ -58,8 +73,8 @@ export default function Hero() {
       ],
       {
         opacity: 0,
-        ease: "none",
         duration: 0.3,
+        ease: "none",
       },
     );
 
@@ -67,14 +82,14 @@ export default function Hero() {
       width: "110vw",
       height: "110vh",
       borderRadius: 0,
-      ease: "none",
       duration: 1,
+      ease: "none",
     });
 
     tl.to(contentRef.current, {
       opacity: 1,
-      ease: "none",
       duration: 0.2,
+      ease: "none",
     });
 
     tl.to(
@@ -86,7 +101,6 @@ export default function Hero() {
           const progress = this.progress();
           const totalLetters = letters.length;
 
-          
           letters.forEach((el, i) => {
             const threshold = i / totalLetters;
 
@@ -99,34 +113,28 @@ export default function Hero() {
             gsap.set(el, { opacity });
           });
 
-          
           iconRefs.current.forEach((icon, i) => {
-            const trigger = (iconLetterIndex[i] + 5) / totalLetters;
+            const start = iconLetterIndex[i] / totalLetters;
+            const end = start + 0.02;
 
-            if (progress > trigger) {
-              gsap.to(icon, {
-                width: 75,
-                opacity: 1,
-                duration: 0.35,
-                ease: "cubic-bezier(.34,1.56,.64,1)",
-                scale: 1,
-                overwrite: true,
-              });
-            } else {
-              gsap.to(icon, {
-                width: 0,
-                opacity: 0,
-                duration: 0.25,
-                ease: "cubic-bezier(.4,0,.2,1)",
-                overwrite: true,
-              });
-            }
+            const iconProgress = gsap.utils.clamp(
+              0,
+              1,
+              (progress - start) / (end - start),
+            );
+
+            gsap.set(icon, {
+              width: 75 * iconProgress,
+              opacity: iconProgress,
+              scale: 0.2 + iconProgress * 0.8,
+            });
           });
         },
       },
     );
   }, []);
 
+ 
   return (
     <section className={styles.home_section} ref={sectionRef}>
       <main className={styles.home__main}>

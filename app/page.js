@@ -1,12 +1,16 @@
+"use client";
+import { useEffect, useState } from "react";
 import Hero from "./sections/Hero";
+import About from "./sections/About";
+
 export default function Home() {
+  
 
   return (
-   <>
-   <Hero />
-   <section style={{ width: "100vw", height: "100vh", backgroundColor: "#ffffff"}}>
-
-   </section>
-   </>
+    <>
+      <Hero />
+      
+      
+    </>
   );
 }
