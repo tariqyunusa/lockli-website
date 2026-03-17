@@ -2,6 +2,7 @@
 import { useEffect, useState, useRef } from "react";
 import Hero from "./sections/Hero";
 import About from "./sections/About";
+import Features from "./sections/Features";
 
 export default function Home() {
   const [isMobile, setIsMobile] = useState(false);
@@ -23,6 +24,7 @@ export default function Home() {
       {isMobile && (
         <About refs={letterRefs} iconRefs={iconRefs} />
       )}
+      <Features />
     </>
   );
 }
