@@ -38,6 +38,7 @@ export default function Features() {
     },
   ];
   const cardRef = useRef([])
+  const sectionRef = useRef(null)
 
   const cardsLength = Feature.length
   const segmentSize = 1 / cardsLength
@@ -53,11 +54,55 @@ export default function Features() {
             scale: 1 - i * cardScaleStep
         })
     })
+
+    ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: "top top",
+        end: `${window.innerHeight * 8}px`,
+        pin: true,
+        pinSpacing: true,
+        scrub: 1,
+        onUpdate: (self) => {
+            const progress = self.progress
+
+            const activeIndex = Math.min(
+                Math.floor(progress / segmentSize),
+                cardsLength - 1
+            )
+
+            const segProgress = (progress - activeIndex * segmentSize) / segmentSize
+
+            cardRef.current.forEach((card, i) => {
+                if(i < activeIndex) {
+                    gsap.set(card, {
+                        yPercent: -250,
+                        rotationX: 35,
+                    })
+                }else if(i === activeIndex) {
+                    gsap.set(card, {
+                        yPercent: gsap.utils.interpolate(-50, -200, segProgress),
+                        rotationX: gsap.utils.interpolate(0, 35, segProgress),
+                        scale: 1
+                    })
+                }else{
+                    const behindIndex = i - activeIndex
+                    const currentYOffset = (behindIndex - segProgress) * cardYOffset
+                    const currentScale = 1 - (behindIndex - segProgress) * cardScaleStep
+
+                    gsap.set(card, {
+                        yPercent: -50 + currentYOffset,
+                        rotationX: 0,
+                        scale: currentScale
+                    })
+                }
+            })
+        }
+    })
   },[])
 
 
   return (
-    <section className={styles.feature__section}>
+    <section className={styles.feature__section} ref={sectionRef}>
       {Feature.map((card, idx) => (
         <div
           style={{ backgroundColor: card.color }}
