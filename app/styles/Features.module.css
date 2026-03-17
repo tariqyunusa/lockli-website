@@ -1,12 +1,13 @@
 .feature__section{
     width: 100vw;
-    height: 100svh;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     position: relative;
-     perspective: 850px;
+     perspective: 1000px;
+     overflow: hidden;
 }
 .card{
     width: 663px;
