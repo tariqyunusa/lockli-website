@@ -2,6 +2,8 @@
 import styles from "../styles/About.module.css";
 
 export default function About({ refs, iconRefs }) {
+  refs.current = [];
+  iconRefs.current = [];
   const icons = {
     work: 0,
     analytics: 1,
